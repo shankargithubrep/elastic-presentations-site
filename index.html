@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Elastic Observability · Elastic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0B64DD;--ink:#1D1E24;--char:#343741;--grey:#69707D;--line:#D3DAE6;--pink:#F04E98;--teal:#48EFCF;--yellow:#FEC514;--sans:Inter,system-ui,-apple-system,Segoe UI,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{background:#fff;color:var(--ink);font-family:var(--sans);display:grid;place-items:center;padding:16px;
+  background-image:radial-gradient(rgba(29,30,36,.12) 1px,transparent 1.2px);background-size:22px 22px}
+.card{width:min(440px,100%);background:#fff;padding:34px 34px 28px;border-top:3px solid var(--blue);
+  box-shadow:0 0 0 .5px rgba(29,30,36,.10),0 2px 2px rgba(29,30,36,.12),4px 22px 40px -10px rgba(40,55,90,.40)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.logo i{display:grid;grid-template-columns:repeat(2,8px);gap:2px}.logo i b{width:8px;height:8px;border-radius:50%}
+.eb{margin-top:26px;font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+h1{margin:8px 0 6px;font-size:28px;line-height:1.15;letter-spacing:-.6px}h1 span{color:var(--blue)}
+p{margin:0 0 20px;color:var(--char);font-size:14.5px;line-height:1.5}
+label{display:block;font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+input[type=password]{width:100%;font:500 16px var(--sans);padding:11px 12px;border:1.5px solid var(--line);border-radius:4px;outline:none}
+input[type=password]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,100,221,.15)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}
+.rem{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--char)}
+button{font:600 15px var(--sans);color:#fff;background:var(--blue);border:0;border-radius:4px;padding:11px 22px;cursor:pointer}
+button:disabled{opacity:.6;cursor:progress}button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.err{min-height:20px;margin-top:12px;font-size:13px;color:#BD271E}
+.ft{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+</style></head>
+<body><form class="card" id="f" autocomplete="off">
+<div class="logo"><i><b style="background:var(--yellow)"></b><b style="background:var(--pink)"></b><b style="background:var(--teal)"></b><b style="background:var(--blue)"></b></i>elastic</div>
+<div class="eb">Protected · Elastic Observability</div>
+<h1>Private page. <span>Password, please.</span></h1>
+<p>The content is encrypted in this file and opens only with the password. Ask the presenter for it.</p>
+<label for="pw">Password</label><input id="pw" type="password" required autofocus>
+<div class="row"><span class="rem">Stays unlocked in this tab.</span><button id="go" type="submit">Unlock</button></div>
+<div class="err" id="err" role="alert"></div>
+<div class="ft">Elastic Observability · shared with you privately</div>
+</form>
+<script>
+(function () {
+  const E = {"salt":"DhvaW3R4cnGF4Hwt8zt+Xw==","iv":"z9rx35unRNy6wOLd","data":"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"}, ITER = 600000, K = 'deck-pw';
+  const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  async function open(pw) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(E.salt), iterations: ITER, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const html = new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(E.iv) }, key, b64(E.data)));
+    document.open(); document.write(html); document.close();
+  }
+  const get = s => { try { return s.getItem(K); } catch (e) { return null; } };
+  const put = (s, v) => { try { s.setItem(K, v); } catch (e) {} };
+  const saved = get(sessionStorage);
+  if (saved) open(saved).catch(() => { try { sessionStorage.removeItem(K); } catch (e) {} });
+  const f = document.getElementById('f'), pw = document.getElementById('pw'), go = document.getElementById('go'), err = document.getElementById('err');
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); err.textContent = ''; go.disabled = true; go.textContent = 'Unlocking…';
+    try { const v = pw.value; await open(v); put(sessionStorage, v); }
+    catch (x) { go.disabled = false; go.textContent = 'Unlock'; err.textContent = 'That password did not work. Try again.'; pw.select(); }
+  });
+})();
+</script></body></html>
